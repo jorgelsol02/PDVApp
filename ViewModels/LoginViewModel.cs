@@ -1,10 +1,22 @@
-﻿using System.ComponentModel;
+﻿using PDVApp.Data;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PDVApp.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
+
+        private readonly PDVContext _context;
+
+        public LoginViewModel(PDVContext context)
+        {
+            _context = context;
+            EntrarCommand = new RelayCommand(ExecutarLogin);
+        }
+
+
         private string _login;
         private string _senha;
 
@@ -26,16 +38,20 @@ namespace PDVApp.ViewModels
 
         private void ExecutarLogin(object parametro)
         {
-            // Aqui será a lógica de autenticação (ex: consulta ao banco)
-            if (Login == "admin" && Senha == "123")
+            var usuario = _context.Usuarios
+             .FirstOrDefault(u => u.Login == Login && u.Senha == Senha);
+
+            if (usuario != null)
             {
-                System.Windows.MessageBox.Show("Login bem-sucedido!");
+                MessageBox.Show("Login bem-sucedido!");
+                // Abrir a MainWindow ou trocar a view aqui
             }
             else
             {
-                System.Windows.MessageBox.Show("Usuário ou senha incorretos.");
+                MessageBox.Show("Usuário ou senha incorretos.");
             }
         }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string nome) =>

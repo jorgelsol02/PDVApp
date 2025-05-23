@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using PDVApp.Data;
 using PDVApp.ViewModels;
 
 namespace PDVApp.Views
@@ -9,6 +11,8 @@ namespace PDVApp.Views
         public LoginView()
         {
             InitializeComponent();
+            var context = App.AppHost.Services.GetService<PDVContext>();
+            this.DataContext = new LoginViewModel(context);
         }
 
         private void SenhaBox_PasswordChanged(object sender, RoutedEventArgs e)
