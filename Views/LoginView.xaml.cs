@@ -12,7 +12,14 @@ namespace PDVApp.Views
         {
             InitializeComponent();
             var context = App.AppHost.Services.GetService<PDVContext>();
-            this.DataContext = new LoginViewModel(context);
+            var vm = new LoginViewModel(context);
+            this.DataContext = vm;
+            vm.LoginSucesso += () =>
+            {
+                var mainWindow = new ProdutoView();
+                mainWindow.Show();
+                this.Close();
+            };
         }
 
         private void SenhaBox_PasswordChanged(object sender, RoutedEventArgs e)

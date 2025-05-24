@@ -26,7 +26,7 @@ namespace PDVApp
                     services.AddDbContext<PDVContext>(options =>
                         options.UseSqlServer(context.Configuration.GetConnectionString("PDVConnection")));
 
-                    services.AddSingleton<MainWindow>();
+                    services.AddSingleton<ProdutoView>();
                 })
                 .Build();
 

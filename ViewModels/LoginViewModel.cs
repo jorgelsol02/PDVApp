@@ -5,8 +5,11 @@ using System.Windows.Input;
 
 namespace PDVApp.ViewModels
 {
+
     public class LoginViewModel : INotifyPropertyChanged
     {
+
+        public event Action LoginSucesso;
 
         private readonly PDVContext _context;
 
@@ -38,14 +41,16 @@ namespace PDVApp.ViewModels
 
         private void ExecutarLogin(object parametro)
         {
+
             var usuario = _context.Usuarios
              .FirstOrDefault(u => u.Login == Login && u.Senha == Senha);
 
             if (usuario != null)
             {
                 MessageBox.Show("Login bem-sucedido!");
-                // Abrir a MainWindow ou trocar a view aqui
+                LoginSucesso?.Invoke();
             }
+
             else
             {
                 MessageBox.Show("Usuário ou senha incorretos.");
