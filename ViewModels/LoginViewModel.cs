@@ -3,7 +3,7 @@ using PDVApp.Services;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
+using PDVApp.Views;
 
 namespace PDVApp.ViewModels
 {
@@ -49,7 +49,7 @@ public class LoginViewModel : INotifyPropertyChanged
 
             if (usuario != null)
             {
-                _navigation.NavegarPara<ProdutoView>();
+                _navigation.NavegarPara<ProdutoView>(fecharJanelaAtual:false);
             }
             else
             {

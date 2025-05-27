@@ -2,16 +2,26 @@
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using PDVApp.Data;
+using PDVApp.Services;
 using PDVApp.ViewModels;
 
 namespace PDVApp.Views
 {
     public partial class LoginView : Window
     {
-        public LoginView(LoginViewModel viewModel)
+        private PDVContext context;
+        private NavigationService navigationService;
+
+        public LoginView(PDVContext context, LoginViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;
+        }
+
+        public LoginView(PDVContext context, NavigationService navigationService)
+        {
+            this.context = context;
+            this.navigationService = navigationService;
         }
 
         private void SenhaBox_PasswordChanged(object sender, RoutedEventArgs e)

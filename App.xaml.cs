@@ -44,6 +44,8 @@ namespace PDVApp
 
                     // ViewModels
                     services.AddTransient<LoginViewModel>();
+                    services.AddTransient<ProdutoViewModel>();
+                    services.AddTransient<ProdutoFormView>();
 
                     services.AddSingleton<INavigationService, NavigationService>();
 

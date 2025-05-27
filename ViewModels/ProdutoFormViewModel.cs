@@ -9,6 +9,9 @@ namespace PDVApp.ViewModels
 {
     public class ProdutoFormViewModel : INotifyPropertyChanged
     {
+
+        public ICommand SalvarCommand { get; }
+
         private readonly PDVContext _context;
 
         public ProdutoFormViewModel(PDVContext context)
@@ -38,7 +41,7 @@ namespace PDVApp.ViewModels
             set { _estoque = value; OnPropertyChanged(); }
         }
 
-        public ICommand SalvarCommand { get; }
+        
 
         private void Salvar()
         {

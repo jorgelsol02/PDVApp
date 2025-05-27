@@ -4,6 +4,7 @@ namespace PDVApp.Services
 {
     public interface INavigationService
     {
-        void NavegarPara<T>() where T : Window, new();
+        void NavegarPara<T>(object parametro = null, bool fecharJanelaAtual = false) where T : Window;
     }
+
 }
