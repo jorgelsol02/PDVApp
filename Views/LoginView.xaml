@@ -6,11 +6,7 @@
       Title="Login" Height="311" Width="340" Background="#FF012741"
       ResizeMode="NoResize">
 
-    <Window.DataContext>
-       <login:LoginViewModel/>
-   </Window.DataContext>
-
-   <Grid x:Name="Login" Margin="10" Background="#FF012741">
+    <Grid x:Name="Login" Margin="10" Background="#FF012741">
        <Grid.RowDefinitions>
            <RowDefinition Height="Auto"/>
            <RowDefinition Height="Auto"/>
@@ -20,7 +16,7 @@
        <StackPanel>
            <TextBox x:Name="email" Margin="0,90,0,20" ToolTip="Usuário" Text="{Binding Login}" TextChanged="TextBox_TextChanged" Width="245" HorizontalAlignment="Center" VerticalAlignment="Center" />
            <PasswordBox x:Name="SenhaBox" PasswordChanged="SenhaBox_PasswordChanged" Width="245" HorizontalAlignment="Center" Margin="0,0,0,10" />
-            <Button x:Name="Entrar" Content="Entrar" Command="{Binding EntrarCommand}" Margin="50" Width="175" HorizontalAlignment="Center" />
+            <Button x:Name="Entrar" Content="Entrar" Command="{Binding LoginCommand}" Margin="50" Width="175" HorizontalAlignment="Center" />
         </StackPanel>
    </Grid>
 </Window>

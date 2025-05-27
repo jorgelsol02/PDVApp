@@ -1,27 +1,25 @@
 ﻿using PDVApp.Data;
+using PDVApp.Services;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace PDVApp.ViewModels
 {
-
-    public class LoginViewModel : INotifyPropertyChanged
+  
+public class LoginViewModel : INotifyPropertyChanged
     {
+        public ICommand LoginCommand { get; }
 
-        public event Action LoginSucesso;
+        public event Action LoginSucesso = delegate { }; // Initialize with an empty delegate to avoid nullability issues.
 
         private readonly PDVContext _context;
 
-        public LoginViewModel(PDVContext context)
-        {
-            _context = context;
-            EntrarCommand = new RelayCommand(ExecutarLogin);
-        }
+        private readonly INavigationService _navigation;
 
-
-        private string _login;
-        private string _senha;
+        private string _login = string.Empty; // Initialize with an empty string to avoid nullability issues.
+        private string _senha = string.Empty; // Initialize with an empty string to avoid nullability issues.
 
         public string Login
         {
@@ -35,30 +33,30 @@ namespace PDVApp.ViewModels
             set { _senha = value; OnPropertyChanged(nameof(Senha)); }
         }
 
-        public ICommand EntrarCommand { get; }
+        public event PropertyChangedEventHandler PropertyChanged = delegate { }; // Initialize with an empty delegate to avoid nullability issues.
 
-        public LoginViewModel() => EntrarCommand = new RelayCommand(ExecutarLogin);
+        public LoginViewModel(PDVContext context, INavigationService navigation)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _navigation = navigation ?? throw new ArgumentNullException(nameof(navigation));
+            LoginCommand = new RelayCommand(ExecutarLogin);
+        }
 
         private void ExecutarLogin()
         {
-
             var usuario = _context.Usuarios
-             .FirstOrDefault(u => u.Login == Login && u.Senha == Senha);
+                .FirstOrDefault(u => u.Login == Login && u.Senha == Senha);
 
             if (usuario != null)
             {
-                MessageBox.Show("Login bem-sucedido!");
-                LoginSucesso?.Invoke();
+                _navigation.NavegarPara<ProdutoView>();
             }
-
             else
             {
                 MessageBox.Show("Usuário ou senha incorretos.");
             }
         }
-        
 
-        public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string nome) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nome));
     }
