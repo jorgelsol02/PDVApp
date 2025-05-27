@@ -8,7 +8,7 @@ namespace PDVApp.ViewModels
         private readonly Action<object> _executar;
         private readonly Predicate<object> _podeExecutar;
 
-        public RelayCommand(Action<object> executar, Predicate<object> podeExecutar = null)
+    public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
             _executar = executar;
             _podeExecutar = podeExecutar;
