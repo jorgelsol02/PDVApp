@@ -39,7 +39,7 @@ namespace PDVApp.ViewModels
 
         public LoginViewModel() => EntrarCommand = new RelayCommand(ExecutarLogin);
 
-        private void ExecutarLogin(object parametro)
+        private void ExecutarLogin()
         {
 
             var usuario = _context.Usuarios

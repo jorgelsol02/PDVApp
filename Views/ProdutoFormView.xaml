@@ -1,7 +1,9 @@
 ﻿<Window x:Class="PDVApp.Views.ProdutoFormView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Incluir Produto" Height="250" Width="400" WindowStartupLocation="CenterOwner"
+        xmlns:vm="clr-namespace:PDVApp.ViewModels"
+        Title="Incluir Produto" Height="250" Width="400"
+        WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -10,12 +12,21 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
         <TextBlock Text="Nome:" Grid.Row="0" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtNome" Grid.Row="0" Margin="60,0,0,0" Width="300"/>
+        <TextBox Text="{Binding Nome, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Row="0" Margin="60,0,0,0" Width="300"/>
+
         <TextBlock Text="Preço:" Grid.Row="1" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtPreco" Grid.Row="1" Margin="60,0,0,0" Width="300"/>
+        <TextBox Text="{Binding Preco, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Row="1" Margin="60,0,0,0" Width="300"/>
+
         <TextBlock Text="Estoque:" Grid.Row="2" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtEstoque" Grid.Row="2" Margin="60,0,0,0" Width="300"/>
-        <Button Content="Salvar" Grid.Row="3" Margin="0,10,0,0" Width="80" HorizontalAlignment="Right" Click="Salvar_Click"/>
+        <TextBox Text="{Binding Estoque, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Row="2" Margin="60,0,0,0" Width="300"/>
+
+        <Button Content="Salvar" Grid.Row="3" Margin="0,10,0,0" Width="80"
+                HorizontalAlignment="Right"
+                Command="{Binding SalvarCommand}"/>
     </Grid>
 </Window>

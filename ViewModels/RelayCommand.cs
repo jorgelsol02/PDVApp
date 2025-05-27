@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace PDVApp.ViewModels
+public class RelayCommand : ICommand
 {
-    public class RelayCommand : ICommand
-    {
-        private readonly Action<object> _executar;
-        private readonly Predicate<object> _podeExecutar;
+    private readonly Action _execute;
+    private readonly Func<bool> _canExecute;
 
     public RelayCommand(Action execute, Func<bool> canExecute = null)
-        {
-            _executar = executar;
-            _podeExecutar = podeExecutar;
-        }
+    {
+        _execute = execute;
+        _canExecute = canExecute;
+    }
 
-        public bool CanExecute(object parameter) => _podeExecutar == null || _podeExecutar(parameter);
-        public void Execute(object parameter) => _executar(parameter);
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
-        }
+    public bool CanExecute(object parameter) => _canExecute?.Invoke() ?? true;
+    public void Execute(object parameter) => _execute();
+
+    public event EventHandler CanExecuteChanged
+    {
+        add => CommandManager.RequerySuggested += value;
+        remove => CommandManager.RequerySuggested -= value;
     }
 }
